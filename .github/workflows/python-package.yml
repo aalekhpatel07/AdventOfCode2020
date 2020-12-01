@@ -30,7 +30,7 @@ jobs:
     - name: Run the pre-commit action.
       uses: pre-commit/action@v2.0.0
       with:
-        extra_args: sh clean.sh
+        extra_args: flake8 --all-files
     - name: Lint with flake8 and final code checks before pytest.
       run: |
         # stop the build if there are Python syntax errors or undefined names
