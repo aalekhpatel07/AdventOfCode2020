@@ -1,3 +1,4 @@
+#!/bin/bash
 
 function cleaner(){
     for fname in driver.py template.py ./solutions
