@@ -15,10 +15,10 @@ import pytest
 
 
 TOP = Path(os.getcwd())
-DATA = (TOP / 'data')
-DATA_INPUT = DATA / 'input'
-DATA_OUTPUT = DATA / 'output'
-PROBLEM = (TOP / 'solutions')
+DATA = TOP / "data"
+DATA_INPUT = DATA / "input"
+DATA_OUTPUT = DATA / "output"
+PROBLEM = TOP / "solutions"
 
 
 def given_problem(problem_name: str, input_test_case: str):
@@ -31,10 +31,11 @@ def given_problem(problem_name: str, input_test_case: str):
     :param input_test_case: The name of the input test case.
     :return: The calculated output.
     """
-    command = '''\
-        python solutions/{prob}.py
-        < data/input/{case}\
-            '''.format(prob=problem_name, case=input_test_case)
+    command = """
+                python solutions/{prob}.py < data/input/{case}
+            """.format(
+        prob=problem_name, case=input_test_case
+    )
     try:
         output = os.popen(command)
     except BrokenPipeError as _e:
@@ -54,39 +55,39 @@ def all_cases_per_problem(problem_name):
     :return: None
     """
 
-    sample_cases_input = DATA_INPUT.glob(f'{problem_name}*')
-    sample_cases_output = DATA_OUTPUT.glob(f'{problem_name}*')
-    print(f'Testing Problem: {problem_name}')
+    sample_cases_input = DATA_INPUT.glob(f"{problem_name}*")
+    sample_cases_output = DATA_OUTPUT.glob(f"{problem_name}*")
+    print(f"Testing Problem: {problem_name}")
 
     for case in zip(sorted(sample_cases_input), sorted(sample_cases_output)):
         case_inp, case_out = case
-        solution_output = given_problem(
-            problem_name, str(os.path.basename(case_inp)))
+        solution_output = given_problem(problem_name, str(os.path.basename(case_inp)))
         calculated_output = [i.rstrip() for i in solution_output]
-        with open(case_out, 'r') as f_output:
+        with open(case_out, "r") as f_output:
             expected_output = [i.rstrip() for i in f_output]
         passed = calculated_output == expected_output
 
         if passed:
             print(
-                f'Test Case: {str(os.path.basename(case_inp))}',
-                'passed successfully!')
+                f"Test Case: {str(os.path.basename(case_inp))}", "passed successfully!"
+            )
         else:
-            print(f'Test Case: {str(os.path.basename(case_inp))}', 'FAILED!')
-            print('Output:', str(calculated_output),
-                  '\t\t', 'Expected:', expected_output)
+            print(f"Test Case: {str(os.path.basename(case_inp))}", "FAILED!")
+            print(
+                "Output:", str(calculated_output), "\t\t", "Expected:", expected_output
+            )
             return False
     return True
 
 
-def get_problems(fname='problem_names.txt'):
+def get_problems(fname="problem_names.txt"):
     """
     Get the list of problems in `fname`.
     :param fname: The name of the file that has problems.
 
     """
     if os.path.exists(fname):
-        with open(fname, 'r') as problem_file:
+        with open(fname, "r") as problem_file:
             raw = problem_file.readlines()
             return list(map(lambda _x: _x.strip(), raw))
     return []
@@ -110,5 +111,5 @@ def main():
         all_cases_per_problem(_p)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

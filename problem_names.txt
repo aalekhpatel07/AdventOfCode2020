@@ -1,3 +1,2 @@
-Addition
-Day1a
-Day1b
+day_1_a
+day_1_b
