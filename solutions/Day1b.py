@@ -23,10 +23,10 @@ def solve(arr):
 
         if third in s:
             for e_i, e_j in s[third]:
-                if i not in (e_i, e_j):
-                    return third * arr[e_i] * arr[e_j]
+                if not(i in (e_i, e_j)):
+                    return arr[i] * arr[e_i] * arr[e_j]
 
-    return 0
+    return -1
 
 
 def driver():
