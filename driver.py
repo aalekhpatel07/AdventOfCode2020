@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import sys
+import pytest
 
 
 TOP = Path(os.getcwd())
@@ -54,22 +55,22 @@ def all_cases_per_problem(problem_name):
 
         if passed:
             print(f'Test Case: {str(os.path.basename(case_inp))}', 'passed successfully!')
+            return True
         else:
             print(f'Test Case: {str(os.path.basename(case_inp))}', 'FAILED!')
             print(f'Output:', str(calculated_output), '\t\t', 'Expected:', expected_output)
+            return False
     return
 
-
-def main():
-    """
-    Ask for an iterable of problems
-    and test them all.
-    :return: None.
-    """
-    for p in sys.argv[1:]:
-        all_cases_per_problem(p)
-    return
+def get_problems(fname='problem_names.txt'):
+    if os.path.exists(fname):
+        with open(fname, 'r') as f:
+            raw = f.readlines()
+            return list(map(lambda x: x.strip(), raw))
+    return []
 
 
-if __name__ == '__main__':
-    main()
+@pytest.mark.parametrize("problem", get_problems())
+def test_all_cases(problem):
+    assert all_cases_per_problem(problem)
+
