@@ -39,7 +39,6 @@ def all_cases_per_problem(problem_name):
     :param problem_name: The name of the problem.
     :return: None
     """
-    problem_name = problem_name.title()
 
     sample_cases_input = DATA_INPUT.glob(f'{problem_name}*')
     sample_cases_output = DATA_OUTPUT.glob(f'{problem_name}*')
@@ -68,7 +67,7 @@ def main():
     :return: None.
     """
     for p in sys.argv[1:]:
-        all_cases_per_problem(p.title())
+        all_cases_per_problem(p)
     return
 
 
