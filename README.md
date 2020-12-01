@@ -1,4 +1,4 @@
-# Contest_Name
+# Advent of Code 2020.
 ## A very basic custom test suite for competitive programming.
 *Requires Python >= 3
 
