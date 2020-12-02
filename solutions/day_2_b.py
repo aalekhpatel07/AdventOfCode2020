@@ -1,6 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
+My solution for the Problem 1 on
+Day 2 of Advent of Code 2020.
 This is a template that I'll be using
 to solve problems.
 """
