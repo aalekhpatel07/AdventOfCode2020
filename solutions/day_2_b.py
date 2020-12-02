@@ -1,39 +1,57 @@
 """
-My solution for the Problem 1 on
+My solution for the Problem 2 on
 Day 2 of Advent of Code 2020.
 This is a template that I'll be using
 to solve problems.
 """
 
 
-def solve():
+def solve(tokens):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of tokens,
+    where each token is subdivided
+    into three parts, an index (low, high),
+    a char, and a string, count the number
+    of valid tokens, where a token is
+    defined to be valid if the character
+    char occurs exactly at one of low/high
+    in the given string.
 
-    :return: The answer required.
+    :param tokens: A list of tokens.
+
+    :return: The count of valid tokens.
     """
-    return -1
+
+    def check_char(idx, _c):
+        return string[idx - 1] == _c
+
+    valid = 0
+
+    for line in tokens:
+        indices, char, string = line.split(" ")
+        low, high = list(map(int, indices.split("-")))
+        cond = list(map(lambda x: check_char(x, char[:-1]), [low, high]))
+        if any(cond) and not all(cond):
+            valid += 1
+
+    return valid
 
 
 def driver():
     """
     Make sure this driver returns the result.
+
     :return: result - Result of computation.
 
-    Example
-    ______
+    """
 
     _n = int(input())
-    arr = []
+    tokens = []
     for _ in range(_n):
-        arr.append(int(input()))
-    result = solve(arr)
-
-    """
-    result = "This is a template!"
+        tokens.append(input())
+    result = solve(tokens)
     print(result)
+
     return result
 
 

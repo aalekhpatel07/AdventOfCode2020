@@ -1,20 +1,36 @@
 """
 My solution for the Problem 1 on
 Day 2 of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
 """
 
 
-def solve():
+def solve(tokens):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of tokens where
+    each token is subdivided into
+    a frequency range, a character,
+    and a string, count the total
+    number of tokens that are valid
+    where a token is valid if and only
+    if the frequency of the character
+    appearing in the given string lies
+    in the given frequency range.
+
+    :param tokens: A list of tokens.
 
     :return: The answer required.
     """
-    return -1
+
+    valid = 0
+
+    for line in tokens:
+        freq, char, string = line.split(" ")
+        actual_char = char[:-1]
+        low, high = list(map(int, freq.split("-")))
+        if low <= string.count(actual_char) <= high:
+            valid += 1
+
+    return valid
 
 
 def driver():
@@ -32,8 +48,14 @@ def driver():
     result = solve(arr)
 
     """
-    result = "This is a template!"
+
+    _n = int(input())
+    tokens = []
+    for _ in range(_n):
+        tokens.append(input())
+    result = solve(tokens)
     print(result)
+
     return result
 
 
