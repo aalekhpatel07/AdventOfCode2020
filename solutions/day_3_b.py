@@ -1,18 +1,39 @@
 """
-My solution for the Problem 2 on
+My solution for the Problem 1 on
 Day 3 of Advent of Code 2020.
 """
 
 
-def solve():
+def solve(_n, tree):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of list of tokens:
+    . (empty), or # (tree), calculate
+    the product of the number of trees
+    that one would encounter if one would
+    traverse the 2D grid along the given
+    set of slopes.
 
-    :return: The answer required.
+    :param _n: The number of rows in the input.
+    :param tree: The list of list of tokens.
+    :return: The product of the number of trees
+             encountered on every slope.
     """
-    return -1
+
+    slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
+
+    prod = 1
+    col = len(tree[0])
+
+    for right, down in slopes:
+        _i, _j = 0, 0
+        count = 0
+        while _i + down < _n:
+            _j = (_j + right) % col
+            _i += down
+            if tree[_i][_j] == "#":
+                count += 1
+        prod *= count
+    return prod
 
 
 def driver():
@@ -20,17 +41,12 @@ def driver():
     Make sure this driver returns the result.
     :return: result - Result of computation.
 
-    Example
-    ______
-
+    """
     _n = int(input())
     arr = []
     for _ in range(_n):
-        arr.append(int(input()))
-    result = solve(arr)
-
-    """
-    result = "This is a template!"
+        arr.append(input())
+    result = solve(_n, arr)
     print(result)
     return result
 
