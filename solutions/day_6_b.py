@@ -1,20 +1,40 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 2 on
+Day 6 of Advent of Code 2020.
 """
 
 
-def solve():
+def solve(arr):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of list of tokens
+    where each token is a set of
+    characters, sum the length of
+    the intersections between every
+    newline separated token groups.
+    :return count: The sum of the
+    intersection lengths.
+    """
+    _i = 0
+    count = 0
+    tokens = []
+    while _i < len(arr):
+        if arr[_i] == "":
+            res = {_z for _z in tokens[0]}
+            for _t in range(len(tokens)):
+                res = res.intersection({_z for _z in tokens[_t]})
+            count += len(list(res))
+            tokens = []
+        else:
+            tokens.append([_z for _z in arr[_i]])
 
-    :return: The answer required.
-    """
-    return -1
+        _i += 1
+
+    res = {_z for _z in tokens[0]}
+    for _t in range(len(tokens)):
+        res = res.intersection({_z for _z in tokens[_t]})
+    count += len(list(res))
+
+    return count
 
 
 def driver():
@@ -22,17 +42,12 @@ def driver():
     Make sure this driver returns the result.
     :return: result - Result of computation.
 
-    Example
-    ______
-
+    """
     _n = int(input())
     arr = []
     for _ in range(_n):
-        arr.append(int(input()))
+        arr.append(input())
     result = solve(arr)
-
-    """
-    result = "This is a template!"
     print(result)
     return result
 
