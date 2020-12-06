@@ -10,5 +10,3 @@ day_5_a
 day_5_b
 day_6_a
 day_6_b
-day_7_a
-day_7_b
