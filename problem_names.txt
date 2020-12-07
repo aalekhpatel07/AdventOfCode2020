@@ -12,3 +12,5 @@ day_6_a
 day_6_b
 day_7_a
 day_7_b
+day_8_a
+day_8_b
