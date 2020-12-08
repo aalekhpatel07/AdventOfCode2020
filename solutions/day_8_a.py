@@ -1,8 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 1 on
+Day 8 of Advent of Code 2020.
 """
 
 from functools import reduce
@@ -11,27 +9,39 @@ import operator
 
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a set of instructions, with commands
+    `acc`, `jmp`, or `nop` and values as some
+    ints, it is known that if executed,
+    it falls in an infinite loop.
 
-    Example
-    ___
+    Compute the accumulated value just before
+    it falls into recursion.
 
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
+    :return accumulator, i: The accumulated value
+    and the index of instruction that is repeated.
 
     """
+    accumulator = 0
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    _i = 0
+    _seen = set()
 
-    return len(grp)
+    while True:
+        _ins, _val = grp[_i].split(" ")
+        _val = int(_val)
+
+        if _i in _seen:
+            return accumulator
+        _seen |= {_i}
+        if _ins == "acc":
+            accumulator += _val
+            _i += 1
+        elif _ins == "jmp":
+            _i += _val
+        else:
+            _i += 1
+
+    return accumulator
 
 
 def reducer():

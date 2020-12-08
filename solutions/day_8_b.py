@@ -1,8 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 2 on
+Day 8 of Advent of Code 2020.
 """
 
 from functools import reduce
@@ -11,27 +9,86 @@ import operator
 
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a set of instructions, with commands
+    `acc`, `jmp`, or `nop` and values as some
+    ints, it is known that if executed,
+    it falls in an infinite loop.
 
-    Example
-    ___
+    It is given that by replacing exactly one
+    jmp operation with a nop or vice-versa,
+    the instructions can be resolved, i.e.
+    instead of falling into a recursion, the
+    set of instructions will be exhausted.
 
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
+    Compute the accumulated value just before
+    it terminates successfully.
 
     """
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    def given_instructions_check(instructions):
+        """
+        Given a set of instructions, with commands
+        `acc`, `jmp`, or `nop` and values as some
+        ints, it is known that if executed,
+        it falls in an infinite loop.
 
-    return len(grp)
+        Compute the accumulated value just before
+        the program terminates either by falling into
+        an infinite loop or exhausting the instruction
+        set.
+
+        :return accumulator, i: The accumulated value
+        and the index of instruction that is repeated.
+
+        """
+        accumulator = 0
+        _i = 0
+        _seen = set()
+
+        while True:
+            if _i == len(instructions):
+                return (accumulator, _i)
+            _ins, _val = instructions[_i].split(" ")
+            _val = int(_val)
+
+            if _i in _seen:
+                return (accumulator, _i)
+
+            _seen |= {_i}
+
+            if _ins == "acc":
+                accumulator += _val
+                _i += 1
+            elif _ins == "jmp":
+                _i += _val
+            else:
+                _i += 1
+
+        return (accumulator, _i)
+
+    last = len(grp)
+
+    for _z in range(len(grp)):
+        # Simulate the replacement of jmp with nop.
+        if grp[_z].startswith("jmp"):
+
+            grp[_z] = "nop" + grp[_z][3:]
+            _acc, _idx = given_instructions_check(grp)
+            grp[_z] = "jmp" + grp[_z][3:]
+
+            if _idx == last:
+                return _acc
+
+        elif grp[_z].startswith("nop"):
+            # Simulate the replacement of nop with jmp.
+            grp[_z] = "jmp" + grp[_z][3:]
+            _acc, _idx = given_instructions_check(grp)
+            grp[_z] = "nop" + grp[_z][3:]
+
+            if _idx == last:
+                return _acc
+
+    return -1
 
 
 def reducer():
