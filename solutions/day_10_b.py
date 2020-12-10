@@ -1,8 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 2 on
+Day 10 of Advent of Code 2020.
 """
 
 from functools import reduce
@@ -11,27 +9,84 @@ import operator
 
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a list of list of ints,
+    where two ints share a directed edge
+    u-v with v > u if v = u + i for some
+    i in (1, 2, 3), compute the total number
+    of branches (or equivalently leaves) in
+    this directed tree.
 
-    Example
-    ___
-
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
+    :param grp: The list of list of ints.
+    :return: The count of the number of leaves.
 
     """
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    st = list(sorted(map(int, grp)))
+    st = [0] + st + [max(st) + 3]
+    exists = set(st)
 
-    return len(grp)
+    def count_leaves(memo, curr_val):
+        """
+        Given a tree structure with root 0
+        count the number of leaves present in it.
+
+        Notes
+        _____
+
+        Recursive Step:
+
+        Given a curr_val, we store in memo[curr_val]:
+
+        'The number of leaves in the subtree rooted at curr_val.'
+
+        """
+        if curr_val == st[-1]:
+            # Reached a leaf.
+
+            # Leaves have exactly one leaf in the subtree
+            # rooted at them.
+
+            memo[curr_val] = 1
+            return 1
+
+        elif curr_val in memo:
+            # If memoized, don't recompute, save time.
+            return memo[curr_val]
+
+        else:
+            # Subdivide the problem amongst
+            # the current nodes children.
+            for i in range(1, 4):
+                if curr_val + i in exists:
+                    count_leaves(memo, curr_val + i)
+
+            # Assume it is solved for children.
+
+            # Then how to use children's solution
+            # to produce current node's?
+
+            # The number of leaves in the subtree rooted
+            # at curr_val is:
+
+            # The sum of the number of leaves in the
+            # subtrees rooted at its children.
+
+            memo[curr_val] = 0
+
+            for i in range(1, 4):
+                if curr_val + i in memo:
+                    memo[curr_val] += memo[curr_val + i]
+
+            # Populate memo[curr_val] with the result.
+            # and trace back to the next node.
+
+            return memo[curr_val]
+
+    mm = dict()
+
+    count_leaves(mm, 0)
+
+    return mm[0]
 
 
 def reducer():
@@ -58,11 +113,14 @@ def reducer():
 
 def solve(arr):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of lists
+    possibly separated by newlines,
+    'process' each group of lists
+    and reduce it to a result based
+    on the operator defined above.
 
-    :return: The answer required.
+    :param: The list of list.
+    :return: The reduced map based on `operator()`.
     """
 
     _i = 0

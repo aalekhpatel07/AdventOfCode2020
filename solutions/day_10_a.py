@@ -1,8 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 1 on
+Day 10 of Advent of Code 2020.
 """
 
 from functools import reduce
@@ -11,27 +9,23 @@ import operator
 
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a list of list of ints,
+    compute the product of the frequencies
+    of consecutive differences of 3 and 1.
 
-    Example
-    ___
-
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
-
+    :param grp: The list of list of ints.
+    :return: The product of two frequencies.
     """
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    st = list(sorted(map(int, grp)))
+    st = [0] + st + [max(st) + 3]
 
-    return len(grp)
+    diff = {i: 0 for i in range(1, 4)}
+
+    for i in range(1, len(st)):
+        diff[st[i] - st[i - 1]] += 1
+
+    return diff[1] * diff[3]
 
 
 def reducer():
@@ -58,11 +52,15 @@ def reducer():
 
 def solve(arr):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of lists
+    possibly separated by newlines,
+    'process' each group of lists
+    and reduce it to a result based
+    on the operator defined above.
 
-    :return: The answer required.
+    :param: The list of list.
+    :return: The reduced map based on `operator()`.
+
     """
 
     _i = 0
