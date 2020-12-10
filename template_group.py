@@ -1,6 +1,7 @@
 """
 My solution for the Problem i on
 Day j of Advent of Code 2020.
+
 This is a template that I'll be using
 to solve problems.
 """
@@ -58,11 +59,15 @@ def reducer():
 
 def solve(arr):
     """
-    Replace this with a nice docstring
-    that describes what this function is supposed
-    to do.
+    Given a list of lists
+    possibly separated by newlines,
+    'process' each group of lists
+    and reduce it to a result based
+    on the operator defined above.
 
-    :return: The answer required.
+    :param arr: The list of list.
+    :return: The reduced map based on `operator()`.
+
     """
 
     _i = 0
