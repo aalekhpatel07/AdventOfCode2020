@@ -1,5 +1,5 @@
 """
-My solution for the Problem 1 on
+My solution for the Problem 2 on
 Day 13 of Advent of Code 2020.
 """
 
