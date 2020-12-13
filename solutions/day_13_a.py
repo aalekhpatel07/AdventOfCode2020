@@ -1,9 +1,6 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 1 on
+Day 13 of Advent of Code 2020.
 """
 
 from functools import reduce
@@ -12,27 +9,34 @@ import operator
 
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a list of tokens of tokens
+    where the first row is a number
+    and the second (also last) row contains
+    an `x` or a number separated by ','
+    , compute the product of additive inverse of
+    some minimum modular residue with its corresponding
+    value from the second row.
 
-    Example
-    ___
-
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
+    :param grp: The list of list of tokens.
+    :return: The product of the minimum residue
+    with its corresponding value from the second
+    row.
 
     """
+    # Get the time of the earliest bus.
+    e_time = int(grp[0])
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    # Extract all the important bus times.
+    bus_ids = list(map(int, [x for x in grp[1].split(",") if x != "x"]))
 
-    return len(grp)
+    # Find the minimum value for bus - (e_time % bus) over all buses.
+    # Also keep a track of the corresponding bus
+    # as a second component in tuple.
+
+    ans = min([(bus - (e_time % bus), bus) for bus in bus_ids])
+
+    # Return their product.
+    return ans[0] * ans[1]
 
 
 def reducer():
