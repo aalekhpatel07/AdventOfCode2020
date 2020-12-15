@@ -1,38 +1,63 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 1 on
+Day 14 of Advent of Code 2020.
 """
 
 from functools import reduce
 import operator
 
 
+def _apply_mask(_m, _val):
+    """
+    Given a mask `_m` that is
+    a string of 36 bits each '0',
+    '1' or 'X', apply it to a given
+    value.
+
+    :param _m: The mask string
+    :param _val: A value to be masked.
+
+    :return: The uniqued masked value.
+
+    """
+    _v = str(bin(int(_val)))[2:]
+
+    _v = ["0"] * (36 - len(_v)) + list(_v)
+
+    for _i in range(len(_m)):
+        if _m[_i] == "X":
+            continue
+        else:
+            _v[_i] = _m[_i]
+    _res = "".join(_v)
+
+    return int(_res, 2)
+
+
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a list of list of tokens
+    where each token is either `mask = XX0101X...`
+    or `mem[address] = value`, simulate whatever
+    day 14 has in its description.
 
-    Example
-    ___
+    :param grp: The list of list of tokens.
 
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
-
+    :return: The sum of all values left in memory
+    after the process is simulated.
     """
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    mask = ""
+    space = dict()
 
-    return len(grp)
+    for _ins in grp:
+        if _ins.startswith("mask"):
+            mask = _ins.split(" = ")[1]
+        else:
+            mem, value = _ins.split(" = ")
+            address = mem[4:-1]
+            space[address] = _apply_mask(mask, value)
+    return sum(space.values())
 
 
 def reducer():

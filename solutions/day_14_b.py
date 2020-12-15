@@ -1,38 +1,111 @@
 """
-My solution for the Problem i on
-Day j of Advent of Code 2020.
-
-This is a template that I'll be using
-to solve problems.
+My solution for the Problem 2 on
+Day 14 of Advent of Code 2020.
 """
 
 from functools import reduce
 import operator
 
 
+def rpl_helper(_original, _replacement):
+    """
+    Given a list `_original`
+    that contains '0', '1', or 'X',
+    replace the occurrences of 'X'
+    in `_original` with chronological
+    values from `_replacement`.
+
+    :param _original: A list of '0',
+    '1' or 'X'.
+    :param _replacement: A list of '0',
+    or '1' that is of same length as the
+    frequency of 'X' in _original.
+
+    :return: A list of '0' or '1',
+    where 'X's got replaced by corresponding
+    entries of `_replacement`.
+
+    """
+    _result = []
+
+    j = 0
+    for i in range(len(_original)):
+        if _original[i] == "X":
+            _result.append(_replacement[j])
+            j += 1
+        else:
+            _result.append(_original[i])
+    return "".join(_result)
+
+
+def _apply_mask(_m, _val):
+    """
+    Given a mask `_m` that is
+    a string of 36 bits each '0',
+    '1' or 'X', apply it to a given
+    value.
+
+    :param _m: The mask string
+    :param _val: A value to be masked.
+
+    :return: A set of all possible
+    masked values.
+
+    """
+
+    v = str(bin(int(_val)))[2:]
+    v = ["0"] * (36 - len(v)) + list(v)
+
+    _idcs = set()
+
+    for i in range(len(_m)):
+        if _m[i] == "0":
+            continue
+        else:
+            v[i] = _m[i]
+            if _m[i] == "X":
+                _idcs |= {i}
+
+    if len(_idcs) == 0:
+        return {int("".join(v), 2)}
+
+    combs = set()
+
+    for num in range(2 ** len(_idcs)):
+        s = str(bin(num))[2:]
+        s = ["0"] * (len(_idcs) - len(s)) + list(s)
+        combs |= {rpl_helper(v, s)}
+
+    return combs
+
+
 def process_group(grp):
     """
-    Given a group of tokens as a list,
-    compute whatever the problem asks
-    and return it.
+    Given a list of list of tokens
+    where each token is either `mask = XX0101X...`
+    or `mem[address] = value`, simulate whatever
+    day 14 has in its description.
 
-    Example
-    ___
+    :param grp: The list of list of tokens.
 
-    # The problem A of Day 6.
-
-    return len(list(reduce(lambda x, y: x | y, map(set, grp))))
-
-    # The problem B of Day 6.
-
-    return len(list(reduce(lambda x, y: x & y, grp)))
-
+    :return: The sum of all values left in memory
+    after the process is simulated.
     """
 
-    # grp is a group of tokens.
-    # Compute whatever necessary.
+    mask = ""
+    space = dict()
 
-    return len(grp)
+    for _ins in grp:
+        if _ins.startswith("mask"):
+            mask = _ins.split(" = ")[1]
+        else:
+            mem, value = _ins.split(" = ")
+            address = int(mem[4:-1])
+
+            for _address in _apply_mask(mask, address):
+                space[_address] = int(value)
+
+    return sum(space.values())
 
 
 def reducer():
