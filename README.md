@@ -1,5 +1,17 @@
 # Advent of Code 2020.
 
+-   [Problems Day 16](https://adventofcode.com/2020/day/16)
+    -   [Solution 16A](solutions/day_16_a.py)
+    -   [Solution 16B](solutions/day_16_b.py)
+
+-   [Problems Day 15](https://adventofcode.com/2020/day/15)
+    -   [Solution 15A](solutions/day_15_a.py)
+    -   [Solution 15B](solutions/day_15_b.py)
+
+-   [Problems Day 14](https://adventofcode.com/2020/day/14)
+    -   [Solution 14A](solutions/day_14_a.py)
+    -   [Solution 14B](solutions/day_14_b.py)
+
 -   [Problems Day 13](https://adventofcode.com/2020/day/13)
     -   [Solution 13A](solutions/day_13_a.py)
     -   [Solution 13B](solutions/day_13_b.py)
