@@ -28,5 +28,3 @@ day_14_a
 day_14_b
 day_15_a
 day_15_b
-day_16_a
-day_16_b
