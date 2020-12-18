@@ -32,3 +32,5 @@ day_16_a
 day_16_b
 day_17_a
 day_17_b
+day_18_a
+day_18_b
