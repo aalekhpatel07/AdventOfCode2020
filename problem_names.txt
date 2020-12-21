@@ -36,7 +36,3 @@ day_18_a
 day_18_b
 day_19_a
 day_19_b
-day_20_a
-day_20_b
-day_21_a
-day_21_b
