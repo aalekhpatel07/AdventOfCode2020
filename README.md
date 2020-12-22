@@ -1,4 +1,17 @@
 # Advent of Code 2020.
+
+-   [Problems Day 22](https://adventofcode.com/2020/day/22)
+    -   [Solution 22A](solutions/day_22_a.py)
+    -   [Solution 22B](solutions/day_22_b.py)
+
+-   [Problems Day 21](https://adventofcode.com/2020/day/21)
+    -   [Solution 21A](solutions/day_21_a.py)
+    -   [Solution 21B](solutions/day_21_b.py)
+
+-   [Problems Day 20](https://adventofcode.com/2020/day/20)
+    -   [Solution 20A](solutions/day_20_a.py)
+    -   [Solution 20B](solutions/day_20_b.py)
+
 -   [Problems Day 18](https://adventofcode.com/2020/day/18)
     -   [Solution 18A](solutions/day_18_a.py)
     -   [Solution 18B](solutions/day_18_b.py)
