@@ -239,7 +239,6 @@ def dfs(whole, row_idx, col_idx, n, tiles_assigned, mappings, used):
 
     # Reached the terminal state.
     if row_idx == n - 1 and col_idx == n:
-        print(tiles_assigned)
         return True
 
     # Hit the end of row. Go to next row and first column.
