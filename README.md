@@ -3,6 +3,10 @@
     -   [Solution 25A](solutions/day_25_a.py)
     -   [Solution 25B](solutions/day_25_b.py)
 
+-   [Problems Day 24](https://adventofcode.com/2020/day/24)
+    -   [Solution 24A](solutions/day_24_a.py)
+    -   [Solution 24B](solutions/day_24_b.py)
+
 -   [Problems Day 23](https://adventofcode.com/2020/day/23)
     -   [Solution 23A](solutions/day_23_a.py)
     -   [Solution 23B](solutions/day_23_b.py)
