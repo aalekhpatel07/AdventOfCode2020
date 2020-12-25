@@ -1,4 +1,7 @@
 # Advent of Code 2020.
+-   [Problems Day 24](https://adventofcode.com/2020/day/24)
+    -   [Solution 24A](solutions/day_24_a.py)
+    -   [Solution 24B](solutions/day_24_b.py)
 
 -   [Problems Day 23](https://adventofcode.com/2020/day/23)
     -   [Solution 23A](solutions/day_23_a.py)

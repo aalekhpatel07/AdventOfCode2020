@@ -42,3 +42,5 @@ day_22_a
 day_22_b
 day_23_a
 day_23_b
+day_24_a
+day_24_b
