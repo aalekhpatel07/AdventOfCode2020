@@ -14,7 +14,7 @@ lazy-object-proxy==1.4.3
 mccabe==0.6.1
 mypy-extensions==0.4.3
 networkx==2.5
-numpy==1.19.4
+numpy==1.22.0
 packaging==20.7
 pathspec==0.8.1
 pluggy==0.13.1
